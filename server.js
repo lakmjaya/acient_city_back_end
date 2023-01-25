@@ -1,11 +1,11 @@
 const express = require('express')
 require('dotenv').config()
 const mongoose = require('mongoose')
-const Todos = require('./models/todos')
+const Cities = require('./models/cities')
 const cors =require('cors')
 const db = mongoose.connection
-const todosData = require('./utilities/data')
-const todosController = require('./controllers/todos')
+const citiesData = require('./utilities/data')
+const citiesController = require('./controllers/cities')
 
 // Environmental Varibles
 const app = express()
@@ -28,14 +28,14 @@ app.use(express.static('public')) // we need to tell express to use the public d
 app.use(cors({ origin: '*' })) // used to whitelist requests
 
 // Routes
-app.use('/todos', todosController) // telling server.js to get the routes from controllers/todos.js
+app.use('/cities', citiesController) // telling server.js to get the routes from controllers/todos.js
 
 
 // Seeding the db
 app.get('/seed', async (req, res) => {
-    await Todos.deleteMany({});
-    await Todos.insertMany(todosData);
-    res.send('done!');
+    await Cities.deleteMany({});
+    await Cities.insertMany(citiesData);
+    res.send('City data done!');
   });
 
 app.listen(PORT, () => {
